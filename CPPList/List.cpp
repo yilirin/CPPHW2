@@ -48,21 +48,53 @@ ListNode * CPPList::next(const ListNode *current){
 const ListNode * CPPList::next(const ListNode *current) const{
     return current->next;
 }
-
+//ListHead ListEnd全都定义为哨兵。
 void CPPList::append(int number){
     ListNode * newNode = new ListNode;
     newNode->data()=number;
     if (ListHead == 0) {
         ListHead = newNode;
-        newNode->next = 0;
+        newNode->next = ListEnd;
     }
     else {
-        ListEnd->next = newNode;
-        newNode->next = 0;
+        ListEnd = newNode;
+        newNode->next = ListEnd;
     }
-    ListEnd = newNode;
     ListSize++;
 }
+
+int CPPList::find(ListNode *current){
+    for (ListNode * tmp = ListHead; tmp != ListEnd; tmp = tmp->next) {
+        if(current == tmp){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void CPPList::insert(ListNode *current, int number){
+    if (find(current)) {
+        ListNode *tmp = new ListNode;
+        tmp->next = current;
+        current = tmp;
+        current->data() = number;
+    }
+}
+
+void CPPList::remove(ListNode *current){
+    if (find(current)){
+        ListNode *tmp;
+        tmp = current;
+        current = current->next;
+        delete tmp;
+        /*How about changing the above two lines to
+         tmp = current->next;
+         delete current.
+         */
+    }
+}
+
+
 
 
     

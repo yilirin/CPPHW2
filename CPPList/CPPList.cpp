@@ -66,7 +66,7 @@ int main()
 	}
 
 	cout << "80, for interator methods, i.e. begin and end" << endl; 
-#if 0
+
 	//////////////////////////////////////////////////////////////////////////
 	// 嗯，只是看看
 	list->remove(NULL); 
@@ -101,8 +101,9 @@ int main()
 	//////////////////////////////////////////////////////////////////////////
 	// 执行以上过程后，数据应与以下数据相同
 	int array2[] = {2, 2, 3, 3, 4, 3, 4, 5, 6, 5, 9};
-
-	assert(list->size() == sizeof(array2) / sizeof(int)); 
+    
+#if 0
+	assert(list->size() == sizeof(array2) / sizeof(int));
 	for (idx = 0, current = list->begin(); 
 		current != list->end(); 
 		current = list->next(current), ++idx)

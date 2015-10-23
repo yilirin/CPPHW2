@@ -8,8 +8,7 @@
 class ListNode
 {
 public:
-    ListNode():value(0),next(this){
-    };
+    ListNode(){};
 	int &data();
 	const int data() const; 
 
@@ -32,6 +31,7 @@ class CPPList
 public:
 	// CPPList类构造函数.
     CPPList():ListHead(),ListEnd(),ListSize(0){
+        ListHead = ListEnd;
     };
 
 	// CPPList类析构函数
@@ -60,15 +60,18 @@ public:
 	
 	// 尾部追加数据
 	void append(int number);
-#if 0
-	// 在current之前差远数据，应判断current有效性
+    
+    int find(ListNode *current);
+    
+    // 在current之前差远数据，应判断current有效性
 	// 无效则无需动作
-	void insert(ListNode *current, int); 
+	void insert(ListNode *current, int number);
 
 	// 删除current当前节点，应判断current有效性
 	// 无效则无需动作
 	void remove(ListNode *current); 
 
+#if 0
 	// 清空数据
 	void clear(); 
 
