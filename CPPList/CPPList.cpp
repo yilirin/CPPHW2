@@ -31,7 +31,7 @@ void dump(const CPPList *list)
 		current != list->end(); 
 		current = list->next(current))
 	{
-		cout << current->data() << endl; 
+		cout << current->data() << endl;
 	}
 }
 
@@ -46,13 +46,12 @@ int main()
 	int idx; 
 
 	//////////////////////////////////////////////////////////////////////////
-	int array[] = {1, 1, 2, 2, 3, 4, 4, 5, 6, 7, 8, 8, 8, 8, 9, 10};
+	int array[] = {1, 1, 2, 2, 3, 4, 4, 5, 6, 7, 8, 8, 8, 8, 9};
 	for (idx = 0; idx < sizeof(array) / sizeof(int); ++idx)
 	{
 		// 尾部追加array，因此最终数据应与array相同
-		list->append(array[idx]); 
+		list->append(array[idx]);
 	}
-    dump(list);
 	assert(list->size() == sizeof(array) / sizeof(int));
 	cout << "75, for append, size, constructor, etc." << endl;
 
@@ -69,7 +68,7 @@ int main()
 
 	//////////////////////////////////////////////////////////////////////////
 	// 嗯，只是看看
-	list->remove(NULL); 
+	//list->remove(NULL);
 
 	// 移除所有"1"s, "8"s, and "10"s
 	// 并且用"5"替换所有"7"
@@ -97,12 +96,13 @@ int main()
 
 		current = list->next(current); 
 	}
+    dump(list);
+
 
 	//////////////////////////////////////////////////////////////////////////
 	// 执行以上过程后，数据应与以下数据相同
 	int array2[] = {2, 2, 3, 3, 4, 3, 4, 5, 6, 5, 9};
     
-#if 0
 	assert(list->size() == sizeof(array2) / sizeof(int));
 	for (idx = 0, current = list->begin(); 
 		current != list->end(); 
@@ -112,6 +112,7 @@ int main()
 	}
 
 	cout << "85, for method remove and data accessibility" << endl; 
+#if 0
 
 	//////////////////////////////////////////////////////////////////////////
 	// 清空list

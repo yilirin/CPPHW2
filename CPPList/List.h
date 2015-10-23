@@ -8,7 +8,7 @@
 class ListNode
 {
 public:
-    ListNode(){};
+    ListNode():next(0){};
 	int &data();
 	const int data() const; 
 
@@ -30,8 +30,8 @@ class CPPList
 {
 public:
 	// CPPList类构造函数.
-    CPPList():ListHead(),ListEnd(),ListSize(0){
-        ListHead = ListEnd;
+    CPPList():ListHeader(),ListTrailer(),ListEnd(),ListSize(0){
+        ListHeader = ListTrailer = 0;
     };
 
 	// CPPList类析构函数
@@ -60,8 +60,8 @@ public:
 	
 	// 尾部追加数据
 	void append(int number);
-    
-    int find(ListNode *current);
+    //找到current前面一个的节点
+    ListNode *findPreNode(ListNode *current);
     
     // 在current之前差远数据，应判断current有效性
 	// 无效则无需动作
@@ -78,7 +78,8 @@ public:
     // CPPList类私有型成员变量.
 #endif
 private:
-    ListNode * ListHead;
+    ListNode * ListHeader;
+    ListNode * ListTrailer;
     ListNode * ListEnd;
     int ListSize;
 

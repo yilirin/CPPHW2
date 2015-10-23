@@ -26,19 +26,19 @@ int CPPList::size(){
 
 
 ListNode *CPPList::begin(){
-    return ListHead;
+    return ListHeader;
 }
 
 ListNode *CPPList::end(){
-    return ListEnd;
+    return ListTrailer;
 }
 
 const ListNode *CPPList::begin() const{
-    return ListHead;
+    return ListHeader;
 }
 
 const ListNode *CPPList::end() const{
-    return ListEnd;
+    return ListTrailer;
 }
 
 ListNode * CPPList::next(const ListNode *current){
@@ -48,50 +48,54 @@ ListNode * CPPList::next(const ListNode *current){
 const ListNode * CPPList::next(const ListNode *current) const{
     return current->next;
 }
-//ListHead ListEnd全都定义为哨兵。
+//ListHeader ListTrailer全都定义为哨兵。
 void CPPList::append(int number){
-    ListNode * newNode = new ListNode;
-    newNode->data()=number;
-    if (ListHead == 0) {
-        ListHead = newNode;
-        newNode->next = ListEnd;
+    ListNode * newNode = new ListNode();
+    newNode->data() = number;
+    if (ListHeader == 0) {
+        ListHeader = newNode;
+        ListEnd = newNode;
     }
     else {
-        ListEnd = newNode;
-        newNode->next = ListEnd;
+        ListEnd->next = newNode;
+        ListEnd = ListEnd->next;
     }
+    newNode->next = ListTrailer;
     ListSize++;
 }
 
-int CPPList::find(ListNode *current){
-    for (ListNode * tmp = ListHead; tmp != ListEnd; tmp = tmp->next) {
-        if(current == tmp){
-            return 1;
+ListNode *CPPList::findPreNode(ListNode *current){
+    for (ListNode * tmp = ListHeader; tmp != ListTrailer; tmp = tmp->next) {
+        if(current == tmp->next){
+            return tmp;
         }
     }
     return 0;
 }
 
 void CPPList::insert(ListNode *current, int number){
-    if (find(current)) {
-        ListNode *tmp = new ListNode;
+    ListNode *tmp = new ListNode;
+    tmp->data() = number;
+    if (current == ListHeader) {
         tmp->next = current;
-        current = tmp;
-        current->data() = number;
+        ListHeader = tmp;
+    }
+    else {
+        tmp->next = current;
+        findPreNode(current)->next = tmp;
+        ListSize++;
     }
 }
 
 void CPPList::remove(ListNode *current){
-    if (find(current)){
-        ListNode *tmp;
-        tmp = current;
-        current = current->next;
-        delete tmp;
-        /*How about changing the above two lines to
-         tmp = current->next;
-         delete current.
-         */
+    if (current == ListHeader) {
+        ListHeader = current->next;
     }
+    else{
+        findPreNode(current)->next = current->next;
+    }
+    delete current;
+    ListSize--;
 }
 
 
