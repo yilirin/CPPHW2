@@ -2,6 +2,7 @@
 
 #include "List.h"
 ////////////////////////////////////////////////////////////////////////////////////
+//ListNode类的成员函数定义：
 int &ListNode::data(){
     return value;
 }
@@ -11,6 +12,11 @@ const int ListNode::data() const{
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
+//CPPList类的成员函数与析构函数定义：
+
+CPPList::~CPPList(){
+    clear();
+}
 
 bool CPPList::is_empty(){
     if (begin() == end()) {
@@ -20,8 +26,13 @@ bool CPPList::is_empty(){
         return 0;
 }
 
+//不通过定义成员变量来标记size，而改用遍历的方式，便于检验程序的安全性。
 int CPPList::size(){
-    return ListSize;
+    int size=0;
+    for (ListNode *tmp = ListHeader; tmp != ListTrailer; tmp = tmp->next) {
+        size++;
+    }
+    return size;
 }
 
 
@@ -48,11 +59,12 @@ ListNode * CPPList::next(const ListNode *current){
 const ListNode * CPPList::next(const ListNode *current) const{
     return current->next;
 }
-//ListHeader ListTrailer全都定义为哨兵。
+
+//
 void CPPList::append(int number){
     ListNode * newNode = new ListNode();
     newNode->data() = number;
-    if (ListHeader == 0) {
+    if (is_empty()) {
         ListHeader = newNode;
         ListEnd = newNode;
     }
@@ -61,9 +73,9 @@ void CPPList::append(int number){
         ListEnd = ListEnd->next;
     }
     newNode->next = ListTrailer;
-    ListSize++;
 }
 
+//找到current前面一个的节点
 ListNode *CPPList::findPreNode(ListNode *current){
     for (ListNode * tmp = ListHeader; tmp != ListTrailer; tmp = tmp->next) {
         if(current == tmp->next){
@@ -74,16 +86,17 @@ ListNode *CPPList::findPreNode(ListNode *current){
 }
 
 void CPPList::insert(ListNode *current, int number){
-    ListNode *tmp = new ListNode;
-    tmp->data() = number;
-    if (current == ListHeader) {
-        tmp->next = current;
-        ListHeader = tmp;
-    }
-    else {
-        tmp->next = current;
-        findPreNode(current)->next = tmp;
-        ListSize++;
+    if (!is_empty()){                               //do not insert if the list is empty
+        ListNode *tmp = new ListNode;
+        tmp->data() = number;
+        if (current == ListHeader) {
+            tmp->next = current;
+            ListHeader = tmp;
+        }
+        else {
+            tmp->next = current;
+            findPreNode(current)->next = tmp;
+        }
     }
 }
 
@@ -95,7 +108,15 @@ void CPPList::remove(ListNode *current){
         findPreNode(current)->next = current->next;
     }
     delete current;
-    ListSize--;
+}
+
+void CPPList::clear(){
+    ListNode * tmp;
+    while(!is_empty()) {
+        tmp = ListHeader;
+        ListHeader = ListHeader->next;
+        delete tmp;
+    }
 }
 
 

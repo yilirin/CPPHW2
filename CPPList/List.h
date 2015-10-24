@@ -30,12 +30,12 @@ class CPPList
 {
 public:
 	// CPPList类构造函数.
-    CPPList():ListHeader(),ListTrailer(),ListEnd(),ListSize(0){
+    CPPList():ListHeader(),ListTrailer(),ListEnd(){
         ListHeader = ListTrailer = 0;
     };
 
 	// CPPList类析构函数
-	~CPPList(); 
+    ~CPPList();
 
 	// CPPList类接口.
 public:
@@ -71,17 +71,16 @@ public:
 	// 无效则无需动作
 	void remove(ListNode *current); 
 
-#if 0
+
 	// 清空数据
 	void clear(); 
 
     // CPPList类私有型成员变量.
-#endif
+
 private:
-    ListNode * ListHeader;
-    ListNode * ListTrailer;
-    ListNode * ListEnd;
-    int ListSize;
+    ListNode * ListHeader;      //头指针
+    ListNode * ListTrailer;     //尾端哨兵，不指向节点
+    ListNode * ListEnd;         //尾指针，指向最后一个节点
 
 };  // class CPPList类定义结束.
 

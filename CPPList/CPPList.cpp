@@ -12,6 +12,14 @@
 // 5：实现时应正确管理内存
 // 6：正确使用const
 
+/*
++---------+    --->+---------+    --->+---------+
+|  Data   |    |   |  Data   |    |   |  Data   |
++---------+    |   +---------+    |   +---------+
+| pointer |-----   | pointer |-----   | pointer |
++---------+        +---------+        +---------+
+ */
+
 //#include "stdafx.h"
 
 #include <assert.h>
@@ -31,8 +39,9 @@ void dump(const CPPList *list)
 		current != list->end(); 
 		current = list->next(current))
 	{
-		cout << current->data() << endl;
+		cout << current->data() << ' ';
 	}
+    cout << endl;
 }
 
 int main()
@@ -96,7 +105,6 @@ int main()
 
 		current = list->next(current); 
 	}
-    dump(list);
 
 
 	//////////////////////////////////////////////////////////////////////////
@@ -112,7 +120,7 @@ int main()
 	}
 
 	cout << "85, for method remove and data accessibility" << endl; 
-#if 0
+
 
 	//////////////////////////////////////////////////////////////////////////
 	// 清空list
@@ -127,8 +135,8 @@ int main()
 		// 每次插入到begin，也即第一个数据的前面，因此，实际上是插入倒序的array3
 		list->insert(list->begin(), array3[idx]); 
 	}
+    dump(list);
 	assert(list->size() == sizeof(array3) / sizeof(int)); 
-
 	//////////////////////////////////////////////////////////////////////////
 	// list的有效节点，应是由begin开始，end结束的所有元素，但不包括end本身
 	for (idx = sizeof(array3) / sizeof(int) - 1, current = list->begin(); 
@@ -157,7 +165,7 @@ int main()
 	delete list; 
 
 	cout << "95, who's your daddy, and TAs wake up" << endl; 
-#endif
+
 	system("pause"); 
 	return 0;
 }
