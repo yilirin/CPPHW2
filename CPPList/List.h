@@ -1,87 +1,1 @@
-
-/// @brief [类的概要描述]
-///
-/// [描述你的类.]
-///
-/// @see 
-///
-class ListNode
-{
-public:
-    ListNode():next(0){};
-	int &data();
-	const int data() const; 
-
-private:
-    int value;
-    ListNode *next;
-	friend class CPPList; 
-
-}; // class ListNode类定义结束.
-
-
-/// @brief [类的概要描述]
-///
-/// [描述你的类.]
-///
-/// @see 
-///
-class CPPList
-{
-public:
-	// CPPList类构造函数.
-    CPPList():ListHeader(),ListTrailer(),ListEnd(){
-        ListHeader = ListTrailer = 0;
-    };
-
-	// CPPList类析构函数
-    ~CPPList();
-
-	// CPPList类接口.
-public:
-	// 列表是否为空
-	bool is_empty(); 
-
-	// 列表元素个数
-	int size(); 
-
-	// 返回list有效节点的起始位置begin及终止位置end
-	// 这些节点应从begin开始，到end结束，但【不包括】end本身
-	// 因此当list为空时，返回值应满足begin==end
-	ListNode *begin(); 
-	ListNode *end(); 
-	const ListNode *begin() const; 
-	const ListNode *end() const; 
-
-	// 根据current获取下一跳节点，应判断current有效性
-	// 无效则直接返回NULL
-	ListNode *next(const ListNode *current); 
-	const ListNode *next(const ListNode *current) const; 
-	
-	// 尾部追加数据
-	void append(int number);
-    //找到current前面一个的节点
-    ListNode *findPreNode(ListNode *current);
-    
-    // 在current之前差远数据，应判断current有效性
-	// 无效则无需动作
-	void insert(ListNode *current, int number);
-
-	// 删除current当前节点，应判断current有效性
-	// 无效则无需动作
-	void remove(ListNode *current); 
-
-
-	// 清空数据
-	void clear(); 
-
-    // CPPList类私有型成员变量.
-
-private:
-    ListNode * ListHeader;      //头指针
-    ListNode * ListTrailer;     //尾端哨兵，不指向节点
-    ListNode * ListEnd;         //尾指针，指向最后一个节点
-
-};  // class CPPList类定义结束.
-
-
+/// @brief [类的概要描述]////// [描述你的类.]////// @see ///class ListNode{public:    ListNode():value(0),next(0){};	int &data();	const int data() const; private:    int value;    ListNode *next;	friend class CPPList; }; // class ListNode类定义结束./// @brief [类的概要描述]////// [描述你的类.]////// @see ///class CPPList{    // CPPList类私有型成员变量.private:    ListNode * ListHeader;      //头指针    ListNode * ListTrailer;     //尾端哨兵，不指向节点    ListNode * ListEnd;         //尾指针，指向最后一个节点    int _size;    public:	// CPPList类构造函数.    CPPList():ListHeader(0),ListTrailer(0),ListEnd(0),_size(0){};	// CPPList类析构函数    ~CPPList();	// CPPList类接口.public:	// 列表是否为空	bool is_empty(); 	// 列表元素个数	int size(); 	// 返回list有效节点的起始位置begin及终止位置end	// 这些节点应从begin开始，到end结束，但【不包括】end本身	// 因此当list为空时，返回值应满足begin==end	ListNode *begin(); 	ListNode *end(); //返回哨兵	const ListNode *begin() const; 	const ListNode *end() const; 	// 根据current获取下一跳节点，应判断current有效性	// 无效则直接返回NULL	ListNode *next(const ListNode *current); 	const ListNode *next(const ListNode *current) const; 		// 尾部追加数据	void append(int number);    //找到current前面一个的节点    ListNode *findPreNode(ListNode *current);        // 在current之前差远数据，应判断current有效性	// 无效则无需动作	void insert(ListNode *current, int number);	// 删除current当前节点，应判断current有效性	// 无效则无需动作	void remove(ListNode *current); 	// 清空数据	void clear(); };  // class CPPList类定义结束.
